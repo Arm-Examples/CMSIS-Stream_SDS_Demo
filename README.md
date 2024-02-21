@@ -1,6 +1,6 @@
 # CMSIS-Stream and Synchronous Data Streaming (SDS) Framework Example
 
-This example demonstrates the usage of [Synchronous Data Streaming (SDS) Framework]https://github.com/ARM-software/SDS-Framework) nodes (player and recorder) in a [CMSIS-Stream](https://github.com/ARM-software/CMSIS-stream) graph.
+This example demonstrates the usage of [Synchronous Data Streaming (SDS) Framework](https://github.com/ARM-software/SDS-Framework) nodes (player and recorder) in a [CMSIS-Stream](https://github.com/ARM-software/CMSIS-stream) graph.
 
 ![graph](Documentation/graph.svg)
 
