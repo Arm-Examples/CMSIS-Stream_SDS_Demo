@@ -1,0 +1,13 @@
+# 20.833333 = 8000 / 384 because RMS node is using 384 samples
+# in input to generate 1 sample in output
+# Audio is sampled at 8000 Hz so the recording of other
+# signals has a sample rate of 20.833333
+sds:
+  name: Energy
+  description: Energy
+  frequency: 20.833333
+  content:
+    - value: sample
+      type: float
+      scale: 1
+      offset: 0

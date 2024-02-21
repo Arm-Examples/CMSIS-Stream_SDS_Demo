@@ -1,0 +1,5 @@
+cmsis_stream==1.9.1
+matplotlib==3.8.2
+numpy==1.22.4
+PyYAML==6.0.1
+scipy==1.12.0

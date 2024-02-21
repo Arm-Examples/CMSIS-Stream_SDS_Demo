@@ -1,0 +1,9 @@
+sds:
+  name: Audio
+  description: Audio with 8 kHz sample rate
+  frequency: 8000
+  content:
+    - value: sample
+      type: int16_t
+      scale: 1
+      offset: 0

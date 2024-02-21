@@ -1,0 +1,15 @@
+build-idx:
+  generated-by: csolution version 2.2.1
+  cdefault: cdefault.yml
+  csolution: Demo.csolution.yml
+  cprojects:
+    - cproject: Demo.cproject.yml
+      clayers:
+        - clayer: $Board-Layer$
+  cbuilds:
+    - cbuild: Demo.Debug+AVH_MPS3_Corstone-300.cbuild.yml
+      project: Demo
+      configuration: .Debug+AVH_MPS3_Corstone-300
+    - cbuild: Demo.Release+AVH_MPS3_Corstone-300.cbuild.yml
+      project: Demo
+      configuration: .Release+AVH_MPS3_Corstone-300

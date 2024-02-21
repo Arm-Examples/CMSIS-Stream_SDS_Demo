@@ -1,0 +1,139 @@
+
+
+
+
+digraph structs {
+    bgcolor = "white"
+    node [shape=plaintext,color="black",fontcolor="black",fontname="Times-Roman"]
+    rankdir=LR
+    edge [arrowsize="0.5",color="black",fontcolor="black",fontname="Times-Roman"]
+
+
+detectionRec [label=<
+<TABLE color="black" bgcolor="burlywood1" BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+  <TR>
+    <TD ALIGN="CENTER" PORT="i"><FONT COLOR="black" POINT-SIZE="14.0">detectionRec<BR/>(SDSRecorder)</FONT></TD>
+  </TR>
+</TABLE>>];
+
+dup0 [shape=point,label="dup0"]
+
+dup1 [shape=point,label="dup1"]
+
+energyRec [label=<
+<TABLE color="black" bgcolor="burlywood1" BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+  <TR>
+    <TD ALIGN="CENTER" PORT="i"><FONT COLOR="black" POINT-SIZE="14.0">energyRec<BR/>(SDSRecorder)</FONT></TD>
+  </TR>
+</TABLE>>];
+
+iir [label=<
+<TABLE color="black" bgcolor="none" BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+  <TR>
+    <TD ALIGN="CENTER" PORT="i"><FONT COLOR="black" POINT-SIZE="14.0">iir<BR/>(IIR)</FONT></TD>
+  </TR>
+</TABLE>>];
+
+player [label=<
+<TABLE color="black" bgcolor="khaki" BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+  <TR>
+    <TD ALIGN="CENTER" PORT="i"><FONT COLOR="black" POINT-SIZE="14.0">player<BR/>(SDSPlayer)</FONT></TD>
+  </TR>
+</TABLE>>];
+
+rms [label=<
+<TABLE color="black" bgcolor="none" BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+  <TR>
+    <TD ALIGN="CENTER" PORT="i"><FONT COLOR="black" POINT-SIZE="14.0">rms<BR/>(RMS)</FONT></TD>
+  </TR>
+</TABLE>>];
+
+signalRec [label=<
+<TABLE color="black" bgcolor="burlywood1" BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+  <TR>
+    <TD ALIGN="CENTER" PORT="i"><FONT COLOR="black" POINT-SIZE="14.0">signalRec<BR/>(SDSRecorder)</FONT></TD>
+  </TR>
+</TABLE>>];
+
+threshold [label=<
+<TABLE color="black" bgcolor="none" BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+  <TR>
+    <TD ALIGN="CENTER" PORT="i"><FONT COLOR="black" POINT-SIZE="14.0">threshold<BR/>(Threshold)</FONT></TD>
+  </TR>
+</TABLE>>];
+
+toFixedPoint [label=<
+<TABLE color="black" bgcolor="none" BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+  <TR>
+    <TD ALIGN="CENTER" PORT="i"><FONT COLOR="black" POINT-SIZE="14.0">toFixedPoint<BR/>(ToFixedPoint)</FONT></TD>
+  </TR>
+</TABLE>>];
+
+toFloat [label=<
+<TABLE color="black" bgcolor="none" BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+  <TR>
+    <TD ALIGN="CENTER" PORT="i"><FONT COLOR="black" POINT-SIZE="14.0">toFloat<BR/>(ToFloat)</FONT></TD>
+  </TR>
+</TABLE>>];
+
+
+
+player:i -> toFloat:i [style="solid",color="darkblue",fontsize="12.0",fontcolor="black",label=<q15(256)>
+,headlabel=<<TABLE BORDER="0" CELLPADDING="4"><TR><TD><FONT COLOR="blue" POINT-SIZE="12.0" >256</FONT>
+</TD></TR></TABLE>>
+,taillabel=<<TABLE BORDER="0" CELLPADDING="4"><TR><TD><FONT COLOR="blue" POINT-SIZE="12.0" >256</FONT>
+</TD></TR></TABLE>>]
+
+toFloat:i -> iir:i [style="solid",color="red",fontsize="12.0",fontcolor="black",label=<f32(256)>
+,headlabel=<<TABLE BORDER="0" CELLPADDING="4"><TR><TD><FONT COLOR="blue" POINT-SIZE="12.0" >256</FONT>
+</TD></TR></TABLE>>
+,taillabel=<<TABLE BORDER="0" CELLPADDING="4"><TR><TD><FONT COLOR="blue" POINT-SIZE="12.0" >256</FONT>
+</TD></TR></TABLE>>]
+
+toFixedPoint:i -> signalRec:i [style="solid",color="darkblue",fontsize="12.0",fontcolor="black",label=<q15(256)>
+,headlabel=<<TABLE BORDER="0" CELLPADDING="4"><TR><TD><FONT COLOR="blue" POINT-SIZE="12.0" >256</FONT>
+</TD></TR></TABLE>>
+,taillabel=<<TABLE BORDER="0" CELLPADDING="4"><TR><TD><FONT COLOR="blue" POINT-SIZE="12.0" >256</FONT>
+</TD></TR></TABLE>>]
+
+threshold:i -> detectionRec:i [style="solid",color="red",fontsize="12.0",fontcolor="black",label=<f32(10)>
+,headlabel=<<TABLE BORDER="0" CELLPADDING="4"><TR><TD><FONT COLOR="blue" POINT-SIZE="12.0" >10</FONT>
+</TD></TR></TABLE>>
+]
+
+iir:i ->  
+dup0 [style="solid",color="red",fontsize="12.0",fontcolor="black",label=<f32(256)>
+
+,taillabel=<<TABLE BORDER="0" CELLPADDING="4"><TR><TD><FONT COLOR="blue" POINT-SIZE="12.0" >256</FONT>
+</TD></TR></TABLE>>]
+
+ 
+dup0 -> toFixedPoint:i [style="solid",color="red",fontsize="12.0",fontcolor="black",label=<f32(256)>
+,headlabel=<<TABLE BORDER="0" CELLPADDING="4"><TR><TD><FONT COLOR="blue" POINT-SIZE="12.0" >256</FONT>
+</TD></TR></TABLE>>
+]
+
+ 
+dup0 -> rms:i [style="solid",color="red",fontsize="12.0",fontcolor="black",label=<f32(512)>
+,headlabel=<<TABLE BORDER="0" CELLPADDING="4"><TR><TD><FONT COLOR="blue" POINT-SIZE="12.0" >384</FONT>
+</TD></TR></TABLE>>
+]
+
+rms:i ->  
+dup1 [style="solid",color="red",fontsize="12.0",fontcolor="black",label=<f32>
+
+]
+
+ 
+dup1 -> threshold:i [style="solid",color="red",fontsize="12.0",fontcolor="black",label=<f32>
+
+]
+
+ 
+dup1 -> energyRec:i [style="solid",color="red",fontsize="12.0",fontcolor="black",label=<f32(10)>
+,headlabel=<<TABLE BORDER="0" CELLPADDING="4"><TR><TD><FONT COLOR="blue" POINT-SIZE="12.0" >10</FONT>
+</TD></TR></TABLE>>
+]
+
+
+}

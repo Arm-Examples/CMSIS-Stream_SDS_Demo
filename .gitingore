@@ -1,0 +1,10 @@
+out/
+tmp/
+__pycache__/
+RTE/_*
+/*.index.txt
+*.bat
+*.cprj
+/*.sds
+/*.cbuild*.yml
+**.DS_Store
