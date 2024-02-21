@@ -24,7 +24,7 @@ Recorder nodes can work with any datatype (here `f32` and `q15`).
 
 ## Recorded signals
 
-Plot of the signals recorded with the `SDSRecorder` nodes running in `AVH`.
+This chapter contains the plots of the signals that were recorded with the `SDSRecorder` nodes running on [Arm Virtual Hardware](https://arm-software.github.io/AVH/main/overview/html/index.html).
 
 ### Filtered signal
 
@@ -60,13 +60,13 @@ cbuild --toolchain AC6 -c Demo.Release+AVH_MPS3_Corstone-300 Demo.csolution.yml
 
 ## Running the demo
 
-On windows:
+On Windows:
 
 ```shell
 FVP_Corstone_SSE-300_Ethos-U55.exe -f framework\layer\Board\AVH_MPS3_Corstone-300\fvp_config.txt -a out\Demo\AVH_MPS3_Corstone-300\Release\Demo.axf
 ```
 
-On Linux, the line would be similar
+On Linux, the line would be similar:
 
 ## Python commands
 
@@ -78,7 +78,7 @@ pip install -r requirements.txt
 
 ### Displaying the results
 
-Execute following commands to generate a plot of the recorded signals.
+Execute the following commands to generate a plot of the recorded signals.
 
 #### The filtered audio
 
@@ -97,19 +97,19 @@ python sds-view.py -y Detection.sds.yml -s DetectionRec.0.sds
 
 #### Regenerating the input audio file
 
-To regenerate the dummy input audio signal:
+To regenerate the dummy input audio signal, run:
 
 ```shell
 python gen_samples.py
 ```
 
-With option `-d`, a debug signal is generated : a ramp from -32768 to 32767.
+With option `-d`, a debug signal is generated: a ramp from -32768 to 32767.
 
 With option `-s`, an heaviside signal is generated.
 
 #### Regenerating the IIR filter
 
-To regenerate the IIR filter:
+To regenerate the IIR filter, enter this command:
 
 ```shell
 python iir_filter_design.py
@@ -121,7 +121,7 @@ If you need to display the transfer function you can do:
 python iir_filter_design.py -p
 ```
 
-If you need to see the filtered signal (to compare with the result of the simulation)
+If you need to see the filtered signal (to compare with the result of the simulation), run:
 
 ```shell
 python iir_filter_design.py -t
@@ -129,7 +129,7 @@ python iir_filter_design.py -t
 
 ### Compute graph
 
-You can regenerate the compute graph with
+You can regenerate the compute graph with:
 
 ```shell
 python ComputeGraph/graph.py 
@@ -141,28 +141,24 @@ Then you can update the `png` representing the graph with ([graphviz](https://gr
 dot -Tpng -o ComputeGraph\Pictures\graph.png ComputeGraph\Pictures\graph.dot     
 ```
 
-You can change the graph by modifying the content of `graph.py`. When you modify the graph you only have to do:
+You can change the graph by modifying the content of `graph.py`. When you modify the graph, rebuild it with:
 
 ```shell
 python ComputeGraph/graph.py 
 cbuild --toolchain AC6 -c Demo.Release+AVH_MPS3_Corstone-300 Demo.csolution.yml
 ```
 
-to rebuild. It will only rebuild one file.
+These commands will only rebuild one file.
 
 ## Limitations of the demo
 
-This demo only supports one player. The `SDSPlayer` node implementation in this demo waits on a timestamp with `osDelayUntil`.
+This demo only supports one player. The `SDSPlayer` node implementation in this demo waits on a timestamp with [`osDelayUntil`](https://arm-software.github.io/CMSIS_6/latest/RTOS2/group__CMSIS__RTOS__Wait.html#ga3c807924c2d6d43bc2ffb49da3f7f3a1).
 
 If several players were used, those waits may create problems (and buffer overflows). It may be better in this case to have a global wait consistent with all players in each iteration of the scheduling loop.
 
 ## Replay
 
-The `player` node is playing an `sds` file `Audio` that is filtered by an IIR filter.
-
-The filtered signal is recorded with the `signalRec` node into an `sds` file `AudioRec`.
-
-We'd like to replay the filtered signal only.
+You can replay the previously recorded signal easily. In the beignning, the `player` node was playing an SDS audio file (`Audio.0.sds`) that was filtered by an IIR filter. The filtered signal was recorded to the `signalRec` node (in the file `AudioRec.0.sds`). Now, we're replaying the `signalRec` signal, thus eliminating the first couple of blocks from the initial graph. As the `signalRec` was converted to fixed point before stores, we need to apply a `toFloat` conversion to be compatible with the initial run. Here's what we do:
 
 ![graph](Documentation/graph.svg)
 
@@ -174,10 +170,10 @@ python ComputeGraph/graph.py -r
 
 ![replay_graph](Documentation/replay_graph.svg)
 
-The new `player` node is now playing the `sds` file `AudioRec`.
+The new `player` node is now playing the SDS file `AudioRec.0.sds`.
 
-In the replay graph, there is no more any filter. The energy and detection are done on the recorded filtered signal. 
+In the replay graph, there is no more any filter. The energy and detection are done on the recorded filtered signal.
 
-Energy and detection nodes will give nearly the same result on the new recorded signal. The differences are due to the fixed point conversion. In the original graph, the `rms` node is working directly from the `float` output of the `IIR`. But, in this demo we have decided to convert the output of the `IIR` to fixed point before recording the filtered audio.
+Energy and detection nodes will give nearly the same result on the new recorded signal. The differences are due to the fixed point conversion. In the original graph, the `rms` node is working directly from the `float` output of the `iir`. But, in this demo we have decided to convert the output of the `iir` to fixed point before recording the filtered audio.
 
-With `SDS` and `CMSIS-Stream` it is easy to record and replay from any point in the graph.
+With SDS and CMSIS-Stream it is easy to record and replay from any point in the graph!
