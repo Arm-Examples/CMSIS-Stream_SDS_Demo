@@ -1,5 +1,7 @@
 # CMSIS-Stream and Synchronous Data Streaming (SDS) Framework Example
 
+[![CMSIS Compliance](https://img.shields.io/github/actions/workflow/status/Arm-Examples/CMSIS-Stream_SDS_Demo/ci.yml?logo=arm&logoColor=0091bd&label=CMSIS%20Compliance)](https://www.keil.arm.com/cmsis) 
+
 This example demonstrates the usage of [Synchronous Data Streaming (SDS) Framework](https://github.com/ARM-software/SDS-Framework) nodes (player and recorder) in a [CMSIS-Stream](https://github.com/ARM-software/CMSIS-stream) graph.
 
 ![graph](Documentation/graph.svg)
